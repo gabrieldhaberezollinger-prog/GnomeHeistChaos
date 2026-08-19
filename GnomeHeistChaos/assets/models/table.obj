@@ -1,0 +1,65 @@
+# Table en Bois - Modèle 3D Low-Poly Cartoon
+# Format: OBJ (compatible Godot)
+# Créé par Vibe Code
+
+# Vertices (sommets)
+# Plateau de la table
+v -1.0 0.8 0.5    # 0: Coin avant-gauche
+v 1.0 0.8 0.5     # 1: Coin avant-droit
+v -1.0 0.8 -0.5   # 2: Coin arrière-gauche
+v 1.0 0.8 -0.5    # 3: Coin arrière-droit
+
+# Pieds de la table
+v -0.8 0.0 0.3    # 4: Pied avant-gauche
+v 0.8 0.0 0.3     # 5: Pied avant-droit
+v -0.8 0.0 -0.3   # 6: Pied arrière-gauche
+v 0.8 0.0 -0.3    # 7: Pied arrière-droit
+
+# Textures (UVs)
+vt 0.0 0.0         # 0: Coin avant-gauche
+vt 1.0 0.0         # 1: Coin avant-droit
+vt 0.0 1.0         # 2: Coin arrière-gauche
+vt 1.0 1.0         # 3: Coin arrière-droit
+vt 0.1 0.1         # 4: Pied avant-gauche
+vt 0.9 0.1         # 5: Pied avant-droit
+vt 0.1 0.9         # 6: Pied arrière-gauche
+vt 0.9 0.9         # 7: Pied arrière-droit
+
+# Normales (optionnel)
+vn 0.0 1.0 0.0     # Haut
+vn 0.0 -1.0 0.0    # Bas
+vn 0.0 0.0 1.0     # Avant
+vn 0.0 0.0 -1.0    # Arrière
+vn 1.0 0.0 0.0     # Droite
+vn -1.0 0.0 0.0    # Gauche
+
+# Faces (triangles)
+# Plateau (haut)
+f 0/0/0 1/1/0 3/3/0
+f 0/0/0 3/3/0 2/2/0
+
+# Plateau (bas)
+f 4/4/1 6/6/1 7/7/1
+f 4/4/1 7/7/1 5/5/1
+
+# Pied avant-gauche
+f 0/0/0 4/4/0 5/5/0
+f 0/0/0 5/5/0 1/1/0
+
+# Pied avant-droit
+f 1/1/0 5/5/0 7/7/0
+f 1/1/0 7/7/0 3/3/0
+
+# Pied arrière-gauche
+f 2/2/0 6/6/0 4/4/0
+f 2/2/0 4/4/0 0/0/0
+
+# Pied arrière-droit
+f 3/3/0 7/7/0 6/6/0
+f 3/3/0 6/6/0 2/2/0
+
+# Côtés du plateau
+f 0/0/2 2/2/2 6/6/2
+f 6/6/2 7/7/2 3/3/2
+f 3/3/3 7/7/3 5/5/3
+f 5/5/3 4/4/3 0/0/3

@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/textures/fabric_blue.png" id="2"]
+
+[node name="MainMenu" type="Control"]
+script = ExtResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+texture = ExtResource( 2 )
+
+[node name="Title" type="Label" parent="."]
+text = "GNOME HEIST CHAOS"
+position = {"x":0,"y":-100}
+align = 1
+valign = 1
+font_size = 72
+font_color = Color( 1, 0.8, 0.2 )
+
+[node name="Subtitle" type="Label" parent="."]
+text = "Steal the Magic, Avoid the Owner!"
+position = {"x":0,"y":-50}
+align = 1
+valign = 1
+font_size = 24
+font_color = Color( 0.8, 0.8, 0.9 )
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+position = {"x":0,"y":50}
+size = Vector2( 300, 300 )
+align = 1
+
+[node name="PlayButton" type="Button" parent="Buttons"]
+text = "Play"
+size_flags_horizontal = 2
+size_flags_vertical = 0
+pressed.connect(_on_play_pressed)
+
+[node name="CoopButton" type="Button" parent="Buttons"]
+text = "Co-op Mode (2-4 Players)"
+size_flags_horizontal = 2
+size_flags_vertical = 0
+pressed.connect(_on_coop_pressed)
+
+[node name="VersusButton" type="Button" parent="Buttons"]
+text = "Versus Mode (1 vs 3)"
+size_flags_horizontal = 2
+size_flags_vertical = 0
+pressed.connect(_on_versus_pressed)
+
+[node name="SettingsButton" type="Button" parent="Buttons"]
+text = "Settings"
+size_flags_horizontal = 2
+size_flags_vertical = 0
+pressed.connect(_on_settings_pressed)
+
+[node name="QuitButton" type="Button" parent="Buttons"]
+text = "Quit"
+size_flags_horizontal = 2
+size_flags_vertical = 0
+pressed.connect(_on_quit_pressed)
+
+[node name="Version" type="Label" parent="."]
+text = "v1.0.0"
+position = {"x":0,"y":250}
+align = 1
+valign = 1
+font_size = 14
+font_color = Color( 0.5, 0.5, 0.6 )

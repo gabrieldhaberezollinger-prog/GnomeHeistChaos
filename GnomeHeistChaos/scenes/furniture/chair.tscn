@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/wood_light.png" id="1"]
+
+[node name="Chair" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = {"surface_material":null,"mesh":{"type":"ArrayMesh","surface_material_override":null,"blend_shapes":[],"lightmap":null,"lightmap_scale":1,"lightmap_uv_scale":Vector2( 1, 1 ),"custom_aabb":Rect3( -0.4, 0, -0.4, 0.8, 0.8, 0.4 ),"mesh_data":{"format":1,"vertex_count":9,"vertices":PackedFloat32Array( -0.4, 0.4, 0, 0.4, 0.4, 0, -0.4, 0.4, -0.4, 0.4, 0.4, -0.4, -0.4, 0.8, -0.4, 0.4, 0.8, -0.4, -0.3, 0, 0.3, 0.3, 0, 0.3, -0.3 ),"morph_target_count":0,"bones":[],"skin":null,"vertex_colors":[],"normals":[],"tangents":[],"uvs":[PackedFloat32Array( 0, 0, 1, 0, 0, 1, 1, 1, 0, 0.8, 1, 0.8, 0.1, 0.1, 0.9, 0.1, 0.1, 0.9 )],"uv2s":[],"colors":[],"bones":[],"weights":[]},"cast_shadows":true}
+material_override = ExtResource( 1 )
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = {"x":0,"y":0.2,"z":0}
+shape = {"type":"BoxShape3D","size":{"x":0.7,"y":0.7,"z":0.7}}

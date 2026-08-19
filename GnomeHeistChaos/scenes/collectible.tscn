@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/collectible.gd" id="1"]
+
+[node name="CollectibleItem" type="Area3D"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = {"type":"SphereShape3D","radius":0.5}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = {"surface_material":null,"mesh":{"type":"SphereMesh","radius":0.5,"height":1,"radial_segments":16,"rings":16},"cast_shadows":true}

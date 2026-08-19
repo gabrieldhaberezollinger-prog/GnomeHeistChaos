@@ -1,0 +1,140 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/owner.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/collectible.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/breakable.tscn" id="4"]
+
+[node name="Kitchen" type="Node3D"]
+
+[node name="LevelBoundary" type="StaticBody3D" parent="."]
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":30,"y":5,"z":30}},"position":{"x":0,"y":0,"z":0}}
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":30,"y":0.2,"z":30}},"cast_shadows":true}
+position = {"x":0,"y":-0.1,"z":0}
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="Wall_North" type="MeshInstance3D" parent="Walls"]
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":30,"y":3,"z":0.2}},"cast_shadows":true}
+position = {"x":0,"y":1.5,"z":-15}
+
+[node name="Wall_South" type="MeshInstance3D" parent="Walls"]
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":30,"y":3,"z":0.2}},"cast_shadows":true}
+position = {"x":0,"y":1.5,"z":15}
+
+[node name="Wall_West" type="MeshInstance3D" parent="Walls"]
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.2,"y":3,"z":30}},"cast_shadows":true}
+position = {"x":-15,"y":1.5,"z":0}
+
+[node name="Wall_East" type="MeshInstance3D" parent="Walls"]
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.2,"y":3,"z":30}},"cast_shadows":true}
+position = {"x":15,"y":1.5,"z":0}
+
+[node name="Ceiling" type="MeshInstance3D" parent="."]
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":28,"y":0.2,"z":28}},"cast_shadows":true}
+position = {"x":0,"y":3,"z":0}
+
+[node name="Furniture" type="Node3D" parent="."]
+
+[node name="Table" type="StaticBody3D" parent="Furniture"]
+position = {"x":0,"y":0,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":2,"y":0.1,"z":1.5}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":2,"y":0.1,"z":1.5}},"position":{"x":0,"y":0,"z":0}}
+
+[node name="Chair1" type="StaticBody3D" parent="Furniture"]
+position = {"x":-1.5,"y":0,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":1,"z":0.8}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":1,"z":0.8}},"position":{"x":0,"y":0,"z":0}}
+
+[node name="Chair2" type="StaticBody3D" parent="Furniture"]
+position = {"x":1.5,"y":0,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":1,"z":0.8}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":1,"z":0.8}},"position":{"x":0,"y":0,"z":0}}
+
+[node name="Fridge" type="StaticBody3D" parent="Furniture"]
+position = {"x":10,"y":0,"z":-8}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":1.5,"y":2,"z":1}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":1.5,"y":2,"z":1}},"position":{"x":0,"y":0,"z":0}}
+
+[node name="Cabinet" type="StaticBody3D" parent="Furniture"]
+position = {"x":-10,"y":0,"z":-8}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":1.5,"y":1.5,"z":0.8}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":1.5,"y":1.5,"z":0.8}},"position":{"x":0,"y":0,"z":0}}
+
+[node name="Shelf" type="StaticBody3D" parent="Furniture"]
+position = {"x":0,"y":0,"z":-12}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":3,"y":0.2,"z":1}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":3,"y":0.2,"z":1}},"position":{"x":0,"y":0,"z":0}}
+
+[node name="BreakableItems" type="Node3D" parent="."]
+
+[node name="Vase1" type="Node3D" parent="BreakableItems"]
+scene_file = "res://scenes/breakable.tscn"
+position = {"x":-2,"y":1,"z":-1}
+
+[node name="Vase2" type="Node3D" parent="BreakableItems"]
+scene_file = "res://scenes/breakable.tscn"
+position = {"x":2,"y":1,"z":-1}
+
+[node name="Plate" type="Node3D" parent="BreakableItems"]
+scene_file = "res://scenes/breakable.tscn"
+position = {"x":0,"y":0.5,"z":-2}
+
+[node name="CollectibleItems" type="Node3D" parent="."]
+
+[node name="GoldenKey" type="Node3D" parent="CollectibleItems"]
+scene_file = "res://scenes/collectible.tscn"
+position = {"x":5,"y":1,"z":5}
+
+[node name="MagicWand" type="Node3D" parent="CollectibleItems"]
+scene_file = "res://scenes/collectible.tscn"
+position = {"x":-5,"y":1,"z":5}
+
+[node name="Sock" type="Node3D" parent="CollectibleItems"]
+scene_file = "res://scenes/collectible.tscn"
+position = {"x":0,"y":1,"z":-10}
+
+[node name="SpawnPoints" type="Node3D" parent="."]
+
+[node name="GnomeSpawn1" type="Node3D" parent="SpawnPoints"]
+position = {"x":-8,"y":0,"z":8}
+
+[node name="GnomeSpawn2" type="Node3D" parent="SpawnPoints"]
+position = {"x":8,"y":0,"z":8}
+
+[node name="GnomeSpawn3" type="Node3D" parent="SpawnPoints"]
+position = {"x":-8,"y":0,"z":-8}
+
+[node name="GnomeSpawn4" type="Node3D" parent="SpawnPoints"]
+position = {"x":8,"y":0,"z":-8}
+
+[node name="OwnerSpawn" type="Node3D" parent="SpawnPoints"]
+position = {"x":0,"y":0,"z":0}
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="Lighting"]
+shadow_mode = 2
+light_energy = 1.2
+light_color = Color( 0.95, 0.9, 0.85 )
+direction = Vector3( -0.3, -1, -0.3 )
+
+[node name="PointLight1" type="PointLight3D" parent="Lighting"]
+position = {"x":0,"y":2.5,"z":0}
+light_energy = 0.8
+light_color = Color( 1, 0.95, 0.9 )
+range = 10
+
+[node name="PointLight2" type="PointLight3D" parent="Lighting"]
+position = {"x":10,"y":2,"z":-8}
+light_energy = 0.5
+light_color = Color( 1, 0.9, 0.8 )
+range = 8
+
+[node name="Environment" type="Environment" parent="Lighting"]
+environment_mode = 1
+bg_color = Color( 0.15, 0.12, 0.1 )
+ambient_light_color = Color( 0.4, 0.35, 0.3 )
+ambient_light_energy = 0.6

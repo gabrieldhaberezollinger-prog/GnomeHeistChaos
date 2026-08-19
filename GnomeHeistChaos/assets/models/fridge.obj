@@ -1,0 +1,73 @@
+# Frigo - Modèle 3D Low-Poly Cartoon
+# Format: OBJ (compatible Godot)
+# Créé par Vibe Code
+
+# Vertices (sommets)
+# Corps du frigo (rectangle)
+v -0.5 1.0 0.5     # 0: Coin haut-gauche-avant
+v 0.5 1.0 0.5      # 1: Coin haut-droit-avant
+v -0.5 0.0 0.5     # 2: Coin bas-gauche-avant
+v 0.5 0.0 0.5      # 3: Coin bas-droit-avant
+v -0.5 1.0 -0.5    # 4: Coin haut-gauche-arrière
+v 0.5 1.0 -0.5     # 5: Coin haut-droit-arrière
+v -0.5 0.0 -0.5    # 6: Coin bas-gauche-arrière
+v 0.5 0.0 -0.5     # 7: Coin bas-droit-arrière
+
+# Porte du frigo
+v -0.45 1.0 0.51   # 8: Porte haut-gauche
+v 0.45 1.0 0.51    # 9: Porte haut-droit
+v -0.45 0.0 0.51   # 10: Porte bas-gauche
+v 0.45 0.0 0.51    # 11: Porte bas-droit
+
+# Poignée de la porte
+v 0.3 0.5 0.52     # 12: Poignée gauche
+v 0.4 0.5 0.52    # 13: Poignée droite
+
+# Textures (UVs)
+vt 0.0 0.0         # 0: Coin haut-gauche-avant
+vt 1.0 0.0         # 1: Coin haut-droit-avant
+vt 0.0 1.0         # 2: Coin bas-gauche-avant
+vt 1.0 1.0         # 3: Coin bas-droit-avant
+vt 0.0 0.0         # 4: Coin haut-gauche-arrière
+vt 1.0 0.0         # 5: Coin haut-droit-arrière
+vt 0.0 1.0         # 6: Coin bas-gauche-arrière
+vt 1.0 1.0         # 7: Coin bas-droit-arrière
+vt 0.05 0.05       # 8: Porte haut-gauche
+vt 0.95 0.05       # 9: Porte haut-droit
+vt 0.05 0.95       # 10: Porte bas-gauche
+vt 0.95 0.95       # 11: Porte bas-droit
+vt 0.6 0.5         # 12: Poignée gauche
+vt 0.7 0.5         # 13: Poignée droite
+
+# Faces (triangles)
+# Corps du frigo (avant)
+f 0/0 1/1 3/3
+f 0/0 3/3 2/2
+
+# Corps du frigo (arrière)
+f 5/5 4/4 6/6
+f 5/5 6/6 7/7
+
+# Corps du frigo (haut)
+f 0/0 4/4 5/5
+f 0/0 5/5 1/1
+
+# Corps du frigo (bas)
+f 2/2 6/6 7/7
+f 2/2 7/7 3/3
+
+# Corps du frigo (gauche)
+f 0/0 2/2 6/6
+f 0/0 6/6 4/4
+
+# Corps du frigo (droit)
+f 1/1 3/3 7/7
+f 1/1 7/7 5/5
+
+# Porte du frigo
+f 8/8 9/9 11/11
+f 8/8 11/11 10/10
+
+# Poignée
+f 12/12 13/13 9/9
+f 12/12 9/9 8/8

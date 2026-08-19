@@ -1,0 +1,56 @@
+# Potion Rouge - Objet à Voler
+# Format: OBJ (compatible Godot)
+# Créé par Vibe Code
+
+# Vertices (sommets)
+# Fiole (corps)
+v 0.0 0.5 0.0      # 0: Haut fiole
+v -0.1 0.0 0.0     # 1: Bas-gauche fiole
+v 0.1 0.0 0.0      # 2: Bas-droite fiole
+
+# Col de la fiole
+v 0.0 0.5 0.0      # 0: Haut fiole (même que bas col)
+v -0.05 0.7 0.0    # 3: Haut-gauche col
+v 0.05 0.7 0.0     # 4: Haut-droite col
+
+# Bouchon
+v 0.0 0.8 0.0      # 5: Haut bouchon
+v -0.08 0.7 0.0    # 6: Bas-gauche bouchon
+v 0.08 0.7 0.0     # 7: Bas-droite bouchon
+
+# Liquide (à l'intérieur)
+v 0.0 0.4 0.0      # 8: Haut liquide
+v -0.08 0.1 0.0    # 9: Bas-gauche liquide
+v 0.08 0.1 0.0     # 10: Bas-droite liquide
+
+# Textures (UVs)
+vt 0.5 1.0         # 0: Haut fiole
+vt 0.3 0.0         # 1: Bas-gauche fiole
+vt 0.7 0.0         # 2: Bas-droite fiole
+vt 0.4 0.8         # 3: Haut-gauche col
+vt 0.6 0.8         # 4: Haut-droite col
+vt 0.5 0.9         # 5: Haut bouchon
+vt 0.35 0.7        # 6: Bas-gauche bouchon
+vt 0.65 0.7        # 7: Bas-droite bouchon
+vt 0.5 0.5         # 8: Haut liquide
+vt 0.4 0.1         # 9: Bas-gauche liquide
+vt 0.6 0.1         # 10: Bas-droite liquide
+
+# Faces (triangles)
+# Fiole (corps)
+f 0/0 1/1 2/2
+
+# Col de la fiole
+f 0/0 3/3 4/4
+f 3/3 1/1 0/0
+f 4/4 0/0 2/2
+
+# Bouchon
+f 5/5 6/6 7/7
+f 6/6 3/3 5/5
+f 7/7 5/5 4/4
+
+# Liquide (intérieur)
+f 8/8 9/9 10/10
+f 9/9 1/1 8/8
+f 10/10 8/8 2/2
