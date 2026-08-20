@@ -1,14 +1,9 @@
 [gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/kitchen.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/gnome_malin.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/owner_character.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/collectibles/golden_key.tscn" id="4"]
-[ext_resource type="PackedScene" path="res://scenes/collectibles/magic_wand.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/collectibles/potion.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://scenes/furniture/table.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://scenes/furniture/chair.tscn" id="8"]
-[ext_resource type="Texture2D" path="res://assets/textures/floor_tiles.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/textures/floor_tiles.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/textures/wood_table.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/textures/wood_light.png" id="4"]
 
 [node name="Kitchen" type="Node3D"]
 script = ExtResource( 1 )
@@ -18,7 +13,7 @@ collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":30,"y":5,"z":30}},"p
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":30,"y":0.2,"z":30}},"cast_shadows":true}
-material_override = ExtResource( 9 )
+material_override = ExtResource( 2 )
 position = {"x":0,"y":-0.1,"z":0}
 
 [node name="Walls" type="Node3D" parent="."]
@@ -45,31 +40,92 @@ position = {"x":0,"y":3,"z":0}
 
 [node name="Furniture" type="Node3D" parent="."]
 
-[node name="Table" type="Node3D" parent="Furniture"]
-scene_file = "res://scenes/furniture/table.tscn"
+[node name="Table" type="StaticBody3D" parent="Furniture"]
 position = {"x":0,"y":0,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":2,"y":0.1,"z":1.5}},"cast_shadows":true}
+material_override = ExtResource( 3 )
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":2,"y":0.1,"z":1.5}},"position":{"x":0,"y":0,"z":0}}
 
-[node name="Chair1" type="Node3D" parent="Furniture"]
-scene_file = "res://scenes/furniture/chair.tscn"
+[node name="Chair1" type="StaticBody3D" parent="Furniture"]
 position = {"x":-1.5,"y":0,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":1,"z":0.8}},"cast_shadows":true}
+material_override = ExtResource( 4 )
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":1,"z":0.8}},"position":{"x":0,"y":0,"z":0}}
 
-[node name="Chair2" type="Node3D" parent="Furniture"]
-scene_file = "res://scenes/furniture/chair.tscn"
+[node name="Chair2" type="StaticBody3D" parent="Furniture"]
 position = {"x":1.5,"y":0,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":1,"z":0.8}},"cast_shadows":true}
+material_override = ExtResource( 4 )
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":1,"z":0.8}},"position":{"x":0,"y":0,"z":0}}
 
 [node name="CollectibleItems" type="Node3D" parent="."]
 
-[node name="GoldenKey" type="Node3D" parent="CollectibleItems"]
-scene_file = "res://scenes/collectibles/golden_key.tscn"
+[node name="GoldenKey" type="Area3D" parent="CollectibleItems"]
 position = {"x":5,"y":1,"z":5}
+collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
 
-[node name="MagicWand" type="Node3D" parent="CollectibleItems"]
-scene_file = "res://scenes/collectibles/magic_wand.tscn"
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GoldenKey"]
+mesh = {"surface_material":null,"mesh":{"type":"SphereMesh","radius":0.5,"height":1,"radial_segments":16,"rings":16},"cast_shadows":true}
+
+[node name="MagicWand" type="Area3D" parent="CollectibleItems"]
 position = {"x":-5,"y":1,"z":5}
+collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
 
-[node name="Potion" type="Node3D" parent="CollectibleItems"]
-scene_file = "res://scenes/collectibles/potion.tscn"
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MagicWand"]
+mesh = {"surface_material":null,"mesh":{"type":"CapsuleMesh","radius":0.2,"height":1},"cast_shadows":true}
+
+[node name="Potion" type="Area3D" parent="CollectibleItems"]
 position = {"x":0,"y":1,"z":-10}
+collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Potion"]
+mesh = {"surface_material":null,"mesh":{"type":"CylinderMesh","radius":0.3,"height":0.8},"cast_shadows":true}
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="GnomePlayer" type="CharacterBody3D" parent="Players"]
+position = {"x":-8,"y":1,"z":8}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GnomePlayer"]
+position = {"x":0,"y":1,"z":0}
+shape = {"type":"CapsuleShape3D","radius":0.5,"height":1.8}
+
+[node name="CameraPivot" type="Node3D" parent="GnomePlayer"]
+position = {"x":0,"y":1.7,"z":0}
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+fov = 70
+near = 0.1
+far = 1000
+position = {"x":0,"y":0,"z":2}
+current = true
+
+[node name="InteractionRay" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3( 0, 0, -5 )
+
+[node name="HeldItemPosition" type="Node3D" parent="GnomePlayer"]
+position = {"x":0.5,"y":0.5,"z":0.5}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GnomePlayer"]
+mesh = {"surface_material":null,"mesh":{"type":"CapsuleMesh","radius":0.5,"height":1.8},"cast_shadows":true}
+position = {"x":0,"y":-0.9,"z":0}
+
+[node name="Owner" type="CharacterBody3D" parent="."]
+position = {"x":0,"y":0,"z":0}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Owner"]
+position = {"x":0,"y":1,"z":0}
+shape = {"type":"CapsuleShape3D","radius":0.6,"height":1.9}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Owner"]
+mesh = {"surface_material":null,"mesh":{"type":"CapsuleMesh","radius":0.6,"height":1.9},"cast_shadows":true}
+position = {"x":0,"y":-0.95,"z":0}
+
+[node name="BedPosition" type="Node3D" parent="Owner"]
+position = {"x":0,"y":0,"z":0}
+
+[node name="VisibilityNotifier3D" type="VisibilityNotifier3D" parent="Owner"]
+aabb = Rect3( -1, -1, -1, 2, 2, 2 )
 
 [node name="SpawnPoints" type="Node3D" parent="."]
 
@@ -90,19 +146,19 @@ position = {"x":0,"y":0,"z":0}
 
 [node name="Lighting" type="Node3D" parent="."]
 
-[node name="DirectionalLight" type="DirectionalLight3D" parent="Lighting"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting"]
 shadow_mode = 2
 light_energy = 1.2
 light_color = Color( 0.95, 0.9, 0.85 )
 direction = Vector3( -0.3, -1, -0.3 )
 
-[node name="PointLight1" type="PointLight3D" parent="Lighting"]
+[node name="PointLight3D" type="PointLight3D" parent="Lighting"]
 position = {"x":0,"y":2.5,"z":0}
 light_energy = 0.8
 light_color = Color( 1, 0.95, 0.9 )
 range = 10
 
-[node name="PointLight2" type="PointLight3D" parent="Lighting"]
+[node name="PointLight3D_2" type="PointLight3D" parent="Lighting"]
 position = {"x":10,"y":2,"z":-8}
 light_energy = 0.5
 light_color = Color( 1, 0.9, 0.8 )
