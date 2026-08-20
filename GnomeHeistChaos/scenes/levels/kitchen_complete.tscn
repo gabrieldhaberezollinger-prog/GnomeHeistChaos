@@ -1,34 +1,28 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Texture2D" path="res://assets/textures/floor_tiles.png" id="1"]
-[ext_resource type="Texture2D" path="res://assets/textures/wood_table.png" id="2"]
-[ext_resource type="Texture2D" path="res://assets/textures/wood_light.png" id="3"]
-
 [node name="Kitchen" type="Node3D"]
 
 [node name="GameManager" type="Node" parent="."]
-script = {"source":"# Gestion simplifiée du jeu
-extends Node
+script = {"source":"extends Node
 
 var chaos_level: float = 0.0
 var max_chaos: float = 100.0
 var score: int = 0
 var time_left: float = 300.0
-var is_game_active: bool = true
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	print(\"Game started! Steal items and avoid the owner.\")
 
 func _process(delta):
-	if is_game_active:
+	if time_left > 0:
 		time_left -= delta
-		if time_left <= 0:
-			is_game_active = false
-			print(\"Game Over!\")
+	else:
+		print(\"Game Over! Score: \", score)
+		get_tree().reload_current_scene()
 
 func add_chaos(amount: float):
 	chaos_level += amount
-	chaos_level = clamp(chaos_level, 0.0, max_chaos)
 	if chaos_level >= max_chaos:
 		var owner = get_node(\"Owner\")
 		if owner:
@@ -39,32 +33,8 @@ func add_score(points: int):
 	print(\"Score: \", score)
 "}
 
-[node name="AudioManager" type="Node" parent="."]
-script = {"source":"# Gestion des sons
-extends Node
-
-func _ready():
-	pass
-
-func play_pickup():
-	var player = AudioStreamPlayer.new()
-	add_child(player)
-	player.stream = load(\"res://assets/audio/pickup.wav\")
-	player.play()
-
-func play_break():
-	var player = AudioStreamPlayer.new()
-	add_child(player)
-	player.stream = load(\"res://assets/audio/break.wav\")
-	player.play()
-"}
-
-[node name="LevelBoundary" type="StaticBody3D" parent="."]
-collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":30,"y":5,"z":30}}}
-
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":30,"y":0.2,"z":30}},"cast_shadows":true}
-material_override = ExtResource( 1 )
 position = {"x":0,"y":-0.1,"z":0}
 
 [node name="Walls" type="Node3D" parent="."]
@@ -89,52 +59,43 @@ position = {"x":15,"y":1.5,"z":0}
 mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":28,"y":0.2,"z":28}},"cast_shadows":true}
 position = {"x":0,"y":3,"z":0}
 
-[node name="Furniture" type="Node3D" parent="."]
-
-[node name="Table" type="StaticBody3D" parent="Furniture"]
+[node name="Table" type="StaticBody3D" parent="."]
 position = {"x":0,"y":0,"z":0}
 mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":2,"y":0.1,"z":1.5}},"cast_shadows":true}
-material_override = ExtResource( 2 )
 collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":2,"y":0.1,"z":1.5}}}
 
-[node name="Chair1" type="StaticBody3D" parent="Furniture"]
+[node name="Chair1" type="StaticBody3D" parent="."]
 position = {"x":-1.5,"y":0,"z":0}
 mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":1,"z":0.8}},"cast_shadows":true}
-material_override = ExtResource( 3 )
 collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":1,"z":0.8}}}
 
-[node name="Chair2" type="StaticBody3D" parent="Furniture"]
+[node name="Chair2" type="StaticBody3D" parent="."]
 position = {"x":1.5,"y":0,"z":0}
 mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":1,"z":0.8}},"cast_shadows":true}
-material_override = ExtResource( 3 )
 collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":1,"z":0.8}}}
 
-[node name="CollectibleItems" type="Node3D" parent="."]
-
-[node name="GoldenKey" type="Area3D" parent="CollectibleItems"]
+[node name="GoldenKey" type="Area3D" parent="."]
 position = {"x":5,"y":1,"z":5}
 collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GoldenKey"]
-mesh = {"surface_material":null,"mesh":{"type":"SphereMesh","radius":0.5,"height":1,"radial_segments":16,"rings":16},"cast_shadows":true}
+mesh = {"surface_material":null,"mesh":{"type":"SphereMesh","radius":0.5},"cast_shadows":true}
 
-[node name="MagicWand" type="Area3D" parent="CollectibleItems"]
+[node name="MagicWand" type="Area3D" parent="."]
 position = {"x":-5,"y":1,"z":5}
 collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MagicWand"]
 mesh = {"surface_material":null,"mesh":{"type":"CapsuleMesh","radius":0.2,"height":1},"cast_shadows":true}
 
-[node name="Potion" type="Area3D" parent="CollectibleItems"]
+[node name="Potion" type="Area3D" parent="."]
 position = {"x":0,"y":1,"z":-10}
 collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Potion"]
 mesh = {"surface_material":null,"mesh":{"type":"CylinderMesh","radius":0.3,"height":0.8},"cast_shadows":true}
 
-[node name="Players" type="Node3D" parent="."]
-
-[node name="GnomePlayer" type="CharacterBody3D" parent="Players"]
+[node name="GnomePlayer" type="CharacterBody3D" parent="."]
 position = {"x":-8,"y":1,"z":8}
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GnomePlayer"]
@@ -151,15 +112,46 @@ far = 1000
 position = {"x":0,"y":0,"z":2}
 current = true
 
-[node name="InteractionRay" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3( 0, 0, -5 )
-
-[node name="HeldItemPosition" type="Node3D" parent="GnomePlayer"]
-position = {"x":0.5,"y":0.5,"z":0.5}
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GnomePlayer"]
 mesh = {"surface_material":null,"mesh":{"type":"CapsuleMesh","radius":0.5,"height":1.8},"cast_shadows":true}
 position = {"x":0,"y":-0.9,"z":0}
+
+[node name="PlayerScript" type="Node" parent="GnomePlayer"]
+script = {"source":"extends Node
+
+@onready var player: CharacterBody3D = get_parent()
+@onready var camera_pivot: Node3D = get_parent().get_node(\"CameraPivot\")
+@onready var camera: Camera3D = camera_pivot.get_node(\"Camera3D\")
+
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _physics_process(delta):
+	var gravity = -9.81
+	if not player.is_on_floor():
+		player.velocity.y += gravity * delta
+	
+	if Input.is_action_just_pressed(\"jump\") and player.is_on_floor():
+		player.velocity.y = 4.5
+	
+	var input_dir = Input.get_vector(\"move_left\", \"move_right\", \"move_forward\", \"move_back\")
+	var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	if direction:
+		player.velocity.x = direction.x * 5.0
+		player.velocity.z = direction.z * 5.0
+	else:
+		player.velocity.x = move_toward(player.velocity.x, 0, 5.0)
+		player.velocity.z = move_toward(player.velocity.z, 0, 5.0)
+	
+	player.move_and_slide()
+
+func _input(event):
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		camera_pivot.rotate_y(-event.relative.x * 0.002)
+		camera.rotate_x(-event.relative.y * 0.002)
+		camera.rotation.x = clamp(camera.rotation.x, -PI/2 + 0.1, PI/2 - 0.1)
+"}
 
 [node name="Owner" type="CharacterBody3D" parent="."]
 position = {"x":0,"y":0,"z":0}
@@ -172,33 +164,62 @@ shape = {"type":"CapsuleShape3D","radius":0.6,"height":1.9}
 mesh = {"surface_material":null,"mesh":{"type":"CapsuleMesh","radius":0.6,"height":1.9},"cast_shadows":true}
 position = {"x":0,"y":-0.95,"z":0}
 
+[node name="OwnerScript" type="Node" parent="Owner"]
+script = {"source":"extends Node
+
+@onready var owner: CharacterBody3D = get_parent()
+@onready var bed_position: Node3D = get_parent().get_node(\"BedPosition\")
+
+var is_asleep: bool = true
+
+func _ready():
+	owner.global_position = bed_position.global_position
+
+func _physics_process(delta):
+	if is_asleep:
+		owner.velocity = Vector3.ZERO
+		return
+	
+	var players = get_tree().get_nodes_in_group(\"players\")
+	if players.size() > 0:
+		var target = players[0]
+		var direction = (target.global_position - owner.global_position).normalized()
+		owner.velocity.x = direction.x * 6.0
+		owner.velocity.z = direction.z * 6.0
+	else:
+		var direction = (bed_position.global_position - owner.global_position).normalized()
+		owner.velocity.x = direction.x * 3.0
+		owner.velocity.z = direction.z * 3.0
+		
+		if owner.global_position.distance_to(bed_position.global_position) < 1.0:
+			is_asleep = true
+	
+	owner.move_and_slide()
+
+func wake_up():
+	is_asleep = false
+	print(\"Owner woke up! Run!\")
+"}
+
 [node name="BedPosition" type="Node3D" parent="Owner"]
 position = {"x":0,"y":0,"z":0}
 
 [node name="VisibilityNotifier3D" type="VisibilityNotifier3D" parent="Owner"]
 aabb = Rect3( -1, -1, -1, 2, 2, 2 )
 
-[node name="Lighting" type="Node3D" parent="."]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 shadow_mode = 2
 light_energy = 1.2
 light_color = Color( 0.95, 0.9, 0.85 )
 direction = Vector3( -0.3, -1, -0.3 )
 
-[node name="PointLight3D" type="PointLight3D" parent="Lighting"]
+[node name="PointLight3D" type="PointLight3D" parent="."]
 position = {"x":0,"y":2.5,"z":0}
 light_energy = 0.8
 light_color = Color( 1, 0.95, 0.9 )
 range = 10
 
-[node name="PointLight3D_2" type="PointLight3D" parent="Lighting"]
-position = {"x":10,"y":2,"z":-8}
-light_energy = 0.5
-light_color = Color( 1, 0.9, 0.8 )
-range = 8
-
-[node name="Environment" type="Environment" parent="Lighting"]
+[node name="Environment" type="Environment" parent="."]
 environment_mode = 1
 bg_color = Color( 0.15, 0.12, 0.1 )
 ambient_light_color = Color( 0.4, 0.35, 0.3 )
