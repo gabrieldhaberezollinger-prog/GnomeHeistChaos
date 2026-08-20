@@ -5,98 +5,88 @@
 [node name="GameManager" type="Node" parent="."]
 script = {"source":"extends Node
 
-var chaos_level: float = 0.0
-var max_chaos: float = 100.0
 var score: int = 0
 var time_left: float = 300.0
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	print(\"Game started! Steal items and avoid the owner.\")
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	print(\"--- GNOME HEIST CHAOS ---\")
+	print(\"WASD: Move | Space: Jump | Mouse: Camera\")
+	print(\"Steal the golden items! Avoid the owner!\")
 
 func _process(delta):
 	if time_left > 0:
 		time_left -= delta
 	else:
-		print(\"Game Over! Score: \", score)
+		print(\"Game Over! Final Score: \", score)
 		get_tree().reload_current_scene()
-
-func add_chaos(amount: float):
-	chaos_level += amount
-	if chaos_level >= max_chaos:
-		var owner = get_node(\"Owner\")
-		if owner:
-			owner.wake_up()
 
 func add_score(points: int):
 	score += points
-	print(\"Score: \", score)
+	print(\"Score: \", score, \" | Time left: \", int(time_left))
 "}
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":30,"y":0.2,"z":30}},"cast_shadows":true}
-position = {"x":0,"y":-0.1,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":50,"y":0.1,"z":50}},"cast_shadows":true}
+position = {"x":0,"y":-0.05,"z":0}
 
 [node name="Walls" type="Node3D" parent="."]
 
 [node name="Wall_North" type="MeshInstance3D" parent="Walls"]
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":30,"y":3,"z":0.2}},"cast_shadows":true}
-position = {"x":0,"y":1.5,"z":-15}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":50,"y":4,"z":0.2}},"cast_shadows":true}
+position = {"x":0,"y":2,"z":-25}
 
 [node name="Wall_South" type="MeshInstance3D" parent="Walls"]
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":30,"y":3,"z":0.2}},"cast_shadows":true}
-position = {"x":0,"y":1.5,"z":15}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":50,"y":4,"z":0.2}},"cast_shadows":true}
+position = {"x":0,"y":2,"z":25}
 
 [node name="Wall_West" type="MeshInstance3D" parent="Walls"]
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.2,"y":3,"z":30}},"cast_shadows":true}
-position = {"x":-15,"y":1.5,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.2,"y":4,"z":50}},"cast_shadows":true}
+position = {"x":-25,"y":2,"z":0}
 
 [node name="Wall_East" type="MeshInstance3D" parent="Walls"]
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.2,"y":3,"z":30}},"cast_shadows":true}
-position = {"x":15,"y":1.5,"z":0}
-
-[node name="Ceiling" type="MeshInstance3D" parent="."]
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":28,"y":0.2,"z":28}},"cast_shadows":true}
-position = {"x":0,"y":3,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.2,"y":4,"z":50}},"cast_shadows":true}
+position = {"x":25,"y":2,"z":0}
 
 [node name="Table" type="StaticBody3D" parent="."]
-position = {"x":0,"y":0,"z":0}
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":2,"y":0.1,"z":1.5}},"cast_shadows":true}
-collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":2,"y":0.1,"z":1.5}}}
+position = {"x":0,"y":0.5,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":3,"y":0.2,"z":2}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":3,"y":0.2,"z":2}}}
 
 [node name="Chair1" type="StaticBody3D" parent="."]
-position = {"x":-1.5,"y":0,"z":0}
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":1,"z":0.8}},"cast_shadows":true}
-collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":1,"z":0.8}}}
+position = {"x":-2,"y":0.5,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":0.8,"z":0.8}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":0.8,"z":0.8}}}
 
 [node name="Chair2" type="StaticBody3D" parent="."]
-position = {"x":1.5,"y":0,"z":0}
-mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":1,"z":0.8}},"cast_shadows":true}
-collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":1,"z":0.8}}}
+position = {"x":2,"y":0.5,"z":0}
+mesh = {"surface_material":null,"mesh":{"type":"BoxMesh","size":{"x":0.8,"y":0.8,"z":0.8}},"cast_shadows":true}
+collision_shape = {"shape":{"type":"BoxShape3D","size":{"x":0.8,"y":0.8,"z":0.8}}}
 
 [node name="GoldenKey" type="Area3D" parent="."]
-position = {"x":5,"y":1,"z":5}
+position = {"x":10,"y":1,"z":10}
 collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GoldenKey"]
 mesh = {"surface_material":null,"mesh":{"type":"SphereMesh","radius":0.5},"cast_shadows":true}
 
 [node name="MagicWand" type="Area3D" parent="."]
-position = {"x":-5,"y":1,"z":5}
+position = {"x":-10,"y":1,"z":10}
 collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MagicWand"]
 mesh = {"surface_material":null,"mesh":{"type":"CapsuleMesh","radius":0.2,"height":1},"cast_shadows":true}
 
 [node name="Potion" type="Area3D" parent="."]
-position = {"x":0,"y":1,"z":-10}
+position = {"x":0,"y":1,"z":-15}
 collision_shape = {"shape":{"type":"SphereShape3D","radius":0.5}}
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Potion"]
 mesh = {"surface_material":null,"mesh":{"type":"CylinderMesh","radius":0.3,"height":0.8},"cast_shadows":true}
 
 [node name="GnomePlayer" type="CharacterBody3D" parent="."]
-position = {"x":-8,"y":1,"z":8}
+position = {"x":-15,"y":1,"z":15}
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GnomePlayer"]
 position = {"x":0,"y":1,"z":0}
@@ -124,7 +114,7 @@ script = {"source":"extends Node
 @onready var camera: Camera3D = camera_pivot.get_node(\"Camera3D\")
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pass
 
 func _physics_process(delta):
 	var gravity = -9.81
@@ -164,6 +154,9 @@ shape = {"type":"CapsuleShape3D","radius":0.6,"height":1.9}
 mesh = {"surface_material":null,"mesh":{"type":"CapsuleMesh","radius":0.6,"height":1.9},"cast_shadows":true}
 position = {"x":0,"y":-0.95,"z":0}
 
+[node name="BedPosition" type="Node3D" parent="Owner"]
+position = {"x":0,"y":0,"z":0}
+
 [node name="OwnerScript" type="Node" parent="Owner"]
 script = {"source":"extends Node
 
@@ -180,7 +173,8 @@ func _physics_process(delta):
 		owner.velocity = Vector3.ZERO
 		return
 	
-	var players = get_tree().get_nodes_in_group(\"players\")
+	var game_manager = get_node(\"/root/Kitchen/GameManager\")
+	var players = game_manager.get_tree().get_nodes_in_group(\"players\")
 	if players.size() > 0:
 		var target = players[0]
 		var direction = (target.global_position - owner.global_position).normalized()
@@ -198,26 +192,62 @@ func _physics_process(delta):
 
 func wake_up():
 	is_asleep = false
-	print(\"Owner woke up! Run!\")
+	print(\"OWNER AWAKE! RUN!\")
 "}
 
-[node name="BedPosition" type="Node3D" parent="Owner"]
-position = {"x":0,"y":0,"z":0}
+[node name="CollectibleScript" type="Node" parent="GoldenKey"]
+script = {"source":"extends Node
 
-[node name="VisibilityNotifier3D" type="VisibilityNotifier3D" parent="Owner"]
-aabb = Rect3( -1, -1, -1, 2, 2, 2 )
+@onready var area: Area3D = get_parent()
+
+func _ready():
+	area.body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+	if body.name == \"GnomePlayer\":
+		var game_manager = get_node(\"/root/Kitchen/GameManager\")
+		game_manager.add_score(10)
+		area.queue_free()
+		print(\"You stole the Golden Key! +10 points\")
+"}
+
+[node name="CollectibleScript2" type="Node" parent="MagicWand"]
+script = {"source":"extends Node
+
+@onready var area: Area3D = get_parent()
+
+func _ready():
+	area.body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+	if body.name == \"GnomePlayer\":
+		var game_manager = get_node(\"/root/Kitchen/GameManager\")
+		game_manager.add_score(20)
+		area.queue_free()
+		print(\"You stole the Magic Wand! +20 points\")
+"}
+
+[node name="CollectibleScript3" type="Node" parent="Potion"]
+script = {"source":"extends Node
+
+@onready var area: Area3D = get_parent()
+
+func _ready():
+	area.body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+	if body.name == \"GnomePlayer\":
+		var game_manager = get_node(\"/root/Kitchen/GameManager\")
+		game_manager.add_score(15)
+		area.queue_free()
+		print(\"You stole the Potion! +15 points\")
+"}
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 shadow_mode = 2
 light_energy = 1.2
 light_color = Color( 0.95, 0.9, 0.85 )
 direction = Vector3( -0.3, -1, -0.3 )
-
-[node name="PointLight3D" type="PointLight3D" parent="."]
-position = {"x":0,"y":2.5,"z":0}
-light_energy = 0.8
-light_color = Color( 1, 0.95, 0.9 )
-range = 10
 
 [node name="Environment" type="Environment" parent="."]
 environment_mode = 1
